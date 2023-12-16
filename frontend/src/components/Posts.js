@@ -3,7 +3,7 @@ import { useState } from 'react';
 import useMutation from '../hooks/useMutation';
 
 const validFileTypes = ['image/jpg', 'image/jpeg', 'image/png'];
-const URL = '/images';
+const URL = '/image';
 
 const ErrorText = ({ children, ...props }) => (
   <Text fontSize="lg" color="red.300">
