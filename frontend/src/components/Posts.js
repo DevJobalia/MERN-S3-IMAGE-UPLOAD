@@ -1,12 +1,21 @@
-import { Box, Button, Text, Input } from '@chakra-ui/react';
+import {
+  Box,
+  Button,
+  Text,
+  Input,
+  SimpleGrid,
+  CircularProgress,
+  Image,
+} from '@chakra-ui/react';
 import { useState } from 'react';
 import useMutation from '../hooks/useMutation';
+import useQuery from '../hooks/useQuery';
 
 const validFileTypes = ['image/jpg', 'image/jpeg', 'image/png'];
 const URL = '/image';
 
 const ErrorText = ({ children, ...props }) => (
-  <Text fontSize="lg" color="red.300">
+  <Text fontSize="lg" color="red.300" {...props}>
     {children}
   </Text>
 );
@@ -17,6 +26,13 @@ const Posts = () => {
     isLoading: uploading,
     error: uploadError,
   } = useMutation({ url: URL });
+
+  const {
+    data: imageUrls,
+    isLoading: imagesLoading,
+    error: fetchError,
+  } = useQuery(URL);
+
   const [error, setError] = useState('');
   const handleUpload = async e => {
     const file = e.target.files[0];
@@ -47,20 +63,35 @@ const Posts = () => {
       >
         Upload
       </Button>
-      {error && (
-        <ErrorText fontSize="lg" color="red.300">
-          {error}
-        </ErrorText>
-      )}
-      {uploadError && (
-        <ErrorText fontSize="lg" color="red.300">
-          {uploadError}
-        </ErrorText>
-      )}
+      {error && <ErrorText>{error}</ErrorText>}
+      {uploadError && <ErrorText>{uploadError}</ErrorText>}
 
       <Text textAlign="left" mb={4}>
         Posts
       </Text>
+      {imagesLoading && (
+        <CircularProgress
+          color="gray.600"
+          trackColor="blue.300"
+          size={7}
+          thickness={10}
+          isIndeterminate
+        />
+      )}
+      {fetchError && (
+        <ErrorText textAlign="left">Failed to load images</ErrorText>
+      )}
+      {!fetchError && imageUrls?.length === 0 && (
+        <Text textAlign="left" fontSize="lg" color="gray.500">
+          No images found
+        </Text>
+      )}
+      <SimpleGrid columns={[1, 2, 3]} spacing={4}>
+        {imageUrls?.length > 0 &&
+          imageUrls?.map(url => (
+            <Image src={url} alt="Image" key={url}></Image>
+          ))}
+      </SimpleGrid>
     </Box>
   );
 };

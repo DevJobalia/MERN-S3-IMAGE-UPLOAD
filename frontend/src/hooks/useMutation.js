@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import axiosClient from '../config/axios';
-import useToast from 'chakra';
+import { useToast } from '@chakra-ui/react';
 
 // abstraction layer
 const useMutation = ({ url, method = 'POST' }) => {
