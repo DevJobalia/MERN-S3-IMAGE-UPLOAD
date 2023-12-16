@@ -4,8 +4,8 @@
 
 - [Introduction](#introduction)
 - [Features](#features)
-- [Tech Stack](#features)
-- [Demo](#features)
+- [Tech Stack](#tech-stack)
+- [Demo](#demo)
 - [Getting Started](#getting-started)
   - [Prerequisites](#prerequisites)
   - [Installation](#installation)
@@ -40,6 +40,8 @@ The React Node Image Uploader on AWS S3 is a full-stack application that allows 
 - nodemon, cors, dotenv, uuid
 
 ## DEMO
+
+https://github.com/DevJobalia/MERN-S3-IMAGE-UPLOAD/assets/109411169/c69b3d77-9d3e-48a6-911a-e92d41b5859b
 
 ## Getting Started
 
